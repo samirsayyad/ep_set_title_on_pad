@@ -1,11 +1,13 @@
 exports.handleClientMessage_CUSTOM = function(hook, context, cb){
   if(context.payload.action == "recieveTitleMessage"){
     var message = context.payload.message;
-    if(!$("#input_title").is(":visible")){ // if we're not editing..
+    if(!$("#title").is(":focus")){ // if we're not editing..
       if(message){
         window.document.title = message;
-        $('#title > h1').text(message);
-        $('#input_title').val(message);
+        $('#title').val(message);
+      }else{
+        window.document.title = "Untitle document";
+        $('#title').val("Untitle document");
       }
     }
   }
@@ -20,26 +22,16 @@ exports.documentReady = function(){
           class_name: "error"
       })
   }
-  $('#edit_title').click(function(){
-    $('#input_title, #save_title').show();
-    $('#title, #edit_title').hide();
-    $('#input_title').focus();
-  });
+  
 
-  $('#save_title').click(function(){
+  $('#title').keyup(function(e){
     sendTitle();
-    window.document.title = $('#input_title').val();
-    $('#title > h1').text($('#input_title').val());
-    $('#title, #edit_title').show();
-    $('#input_title, #save_title').hide();
-  });
-
-  $('#input_title').keyup(function(e){
-    sendTitle();
-    window.document.title = $('#input_title').val();
-    $('#title > h1').text($('#input_title').val());
+    window.document.title = $('#title').val();
     if(e.keyCode === 13){
-      $('#save_title').click();
+      sendTitle();
+      window.document.title = $('#title').val();
+      $('#title').blur(); 
+
     }
   });
 }
@@ -47,7 +39,7 @@ exports.documentReady = function(){
 function sendTitle(){
   var myAuthorId = pad.getUserId();
   var padId = pad.getPadId();
-  var message = $('#input_title').val();
+  var message = $('#title').val();
   // Send chat message to send to the server
   var message = {
     type : 'title',
