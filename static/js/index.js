@@ -6,8 +6,9 @@ exports.handleClientMessage_CUSTOM = function(hook, context, cb){
         window.document.title = message;
         $('#title').val(message);
       }else{
-        window.document.title = "Untitled document";
-        $('#title').val("Untitled document");
+        
+        window.document.title = pad.getPadId();
+        $('#title').val(pad.getPadId());
       }
     }
   }
