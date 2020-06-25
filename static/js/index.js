@@ -9,6 +9,7 @@ exports.handleClientMessage_CUSTOM = function(hook, context, cb){
         
         window.document.title = pad.getPadId();
         $('#title').val(pad.getPadId());
+        sendTitle();
       }
     }
   }
