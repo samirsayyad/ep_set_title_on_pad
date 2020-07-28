@@ -6,10 +6,10 @@ exports.handleClientMessage_CUSTOM = function(hook, context, cb){
         window.document.title = message;
         $('#title').val(message);
       }else{
-        
-        window.document.title = pad.getPadId();
-        $('#title').val(pad.getPadId());
-        sendTitle();
+        var padId = pad.getPadId() ;
+        window.document.title = padId;
+        $('#title').val(padId);
+        sendTitle(padId);
       }
     }
   }
@@ -38,10 +38,16 @@ exports.documentReady = function(){
   });
 }
 
-function sendTitle(){
+function sendTitle(value){
   var myAuthorId = pad.getUserId();
   var padId = pad.getPadId();
-  var message = $('#title').val();
+  if (value)
+  {
+    var message = value
+  }else{
+    var message = $('#title').val();
+  }
+  
   // Send chat message to send to the server
   var message = {
     type : 'title',
