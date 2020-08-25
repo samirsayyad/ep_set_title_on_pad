@@ -1,7 +1,7 @@
 exports.handleClientMessage_CUSTOM = function(hook, context, cb){
   if(context.payload.action == "recieveTitleMessage"){
     var message = context.payload.message;
-    if(!$("#title").is(":focus")){ // if we're not editing..
+   // if(!$("#title").is(":focus")){ // if we're not editing..
       if(message){
         window.document.title = message;
         $('#title').val(message);
@@ -11,7 +11,7 @@ exports.handleClientMessage_CUSTOM = function(hook, context, cb){
         $('#title').val(padId);
         sendTitle(padId);
       }
-    }
+   // }
   }
 }
 
@@ -25,15 +25,24 @@ exports.documentReady = function(){
       })
   }
   
-
-  $('#title').keyup(function(e){
+  $("#save_title").click(function(e){
     sendTitle();
     window.document.title = $('#title').val();
-    if(e.keyCode === 13){
-      sendTitle();
-      window.document.title = $('#title').val();
-      $('#title').blur(); 
+    $('#title').blur(); 
+    $("#save_title").removeClass("save_title_show")
 
+  })
+  $('#title').keyup(function(e){
+    var minSize = 22 
+    var currentSize =$(this).val().length
+    if (currentSize > minSize)
+      $(this).attr('size',currentSize);
+    if (currentSize < 10)
+      $(this).attr('size',minSize);
+
+    $("#save_title").addClass("save_title_show")   
+    if(e.keyCode === 13){
+      $("#save_title").click()
     }
   });
 }

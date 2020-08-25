@@ -1,11 +1,28 @@
 <div id='pad_title'>
-  <input id='title' value="Loading...">
+  <div class="title_container">
+    <input id='title' value="Loading...">
+  </div>
   <!-- <input id='input_title'>
   <div id='edit_title' class='acl-write buttonicon buttonicon-pencil-alt'></div>
-  <div id='save_title'><button class="btn btn-primary">OK</button></div> -->
+  <button class="btn btn-primary">OK</button>
+-->
+  
+  <div ><img id='save_title' src="../static/plugins/ep_set_title_on_pad/static/img/tick.png"/></div> 
 </div>
 
 <style type="text/css">
+  #save_title{
+    padding-top: 5px;
+    cursor: pointer;
+    transform: scale(.7);
+    opacity: 0;
+    transition: all .3s cubic-bezier(.74,-.05,.27,1.75);
+  }
+  .save_title_show {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
   #pad_title {
     display: flex !important;
     flex-direction: row;
