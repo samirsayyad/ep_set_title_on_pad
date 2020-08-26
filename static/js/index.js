@@ -14,7 +14,18 @@ exports.handleClientMessage_CUSTOM = function(hook, context, cb){
    // }
   }
 }
-
+exports.aceInitialized = function(hook, context){
+  var message = clientVars.ep_title_pad.title
+  if(message){
+    window.document.title = message;
+    $('#title').val(message);
+  }else{
+    var padId = pad.getPadId() ;
+    window.document.title = padId;
+    $('#title').val(padId);
+    sendTitle(padId);
+  }
+}
 exports.documentReady = function(){
   if (!$('#editorcontainerbox').hasClass('flex-layout')) {
       $.gritter.add({

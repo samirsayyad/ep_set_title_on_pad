@@ -6,13 +6,13 @@
 
 var authorManager = require("../../src/node/db/AuthorManager"),
 padMessageHandler = require("../../src/node/handler/PadMessageHandler"),
-               db = require('ep_etherpad-lite/node/db/DB').db,
+               db = require('ep_etherpad-lite/node/db/DB'),
             async = require('../../src/node_modules/async');
 
 
 
 // Remove cache for this procedure
-db['dbSettings'].cache = 0;
+//db['dbSettings'].cache = 0;
 
 var buffer = {};
 
@@ -91,9 +91,9 @@ function sendToRoom(message, msg){
   }
 }
 
-exports.clientVars = function(hook, pad, callback){
+exports.clientVars = async function(hook, pad, callback){
   var padId = pad.pad.id;
-  db.get("title:"+padId, function(err, value){
+  var title = await db.get("title:"+padId);
 
     var msg = {
       type: "COLLABROOM",
@@ -102,11 +102,15 @@ exports.clientVars = function(hook, pad, callback){
         payload: {
           action: "recieveTitleMessage",
           padId: padId,
-          message: value
+          message: title
         }
       }
     }
     sendToRoom(false, msg);
+ 
+  return callback({
+    ep_title_pad : {
+      title : title
+    }
   });
-  return callback();
 }
