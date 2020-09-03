@@ -11,6 +11,8 @@ exports.handleClientMessage_CUSTOM = function(hook, context, cb){
         $('#title').val(padId);
         sendTitle(padId);
       }
+
+  
    // }
   }
 }
@@ -25,6 +27,12 @@ exports.aceInitialized = function(hook, context){
     $('#title').val(padId);
     sendTitle(padId);
   }
+  var minSize = 22 
+  var currentSize =$('#title').val().length
+  if (currentSize > minSize)
+  $('#title').attr('size',currentSize);
+  if (currentSize < 10)
+  $('#title').attr('size',minSize);
 }
 exports.documentReady = function(){
   if (!$('#editorcontainerbox').hasClass('flex-layout')) {
