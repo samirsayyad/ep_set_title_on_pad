@@ -41,6 +41,29 @@ exports.handleMessage = async function(hook_name, context, callback){
     return false;
   }
   var message = context.message.data;
+
+  if(message.action === 'getPadTitleMessage'){
+    const padIds = message.padIds;
+    let id = "";
+    const titles = await Promise.all(padIds.map(padid => {
+      id+=`:${padid}`;
+      return db.get("title"+id);
+    }));
+    var msg = {
+      type: "COLLABROOM",
+      data: { 
+        type: "CUSTOM",
+        payload: {
+          action: "recievePadTitleMessage",
+          padId: message.padId,
+          message: titles,
+          padIds: padIds
+        }
+      }
+    };
+    sendToRoom(message, msg);
+  }
+
   /***
     What's available in a message?
      * action -- The action IE chatPosition
@@ -95,18 +118,18 @@ exports.clientVars = async function(hook, pad, callback){
   var padId = pad.pad.id;
   var title = await db.get("title:"+padId);
 
-    var msg = {
-      type: "COLLABROOM",
-      data: {
-        type: "CUSTOM",
-        payload: {
-          action: "recieveTitleMessage",
-          padId: padId,
-          message: title
-        }
+  var msg = {
+    type: "COLLABROOM",
+    data: {
+      type: "CUSTOM",
+      payload: {
+        action: "recieveTitleMessage",
+        padId: padId,
+        message: title
       }
     }
-    sendToRoom(false, msg);
+  }
+  sendToRoom(false, msg);
  
   return callback({
     ep_title_pad : {

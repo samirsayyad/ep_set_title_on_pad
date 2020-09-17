@@ -1,16 +1,54 @@
 <div id='pad_title'>
+  <div class="nd_breadcrumb"></div>
   <div class="title_container">
     <input id='title' value="Loading...">
   </div>
-  <!-- <input id='input_title'>
-  <div id='edit_title' class='acl-write buttonicon buttonicon-pencil-alt'></div>
-  <button class="btn btn-primary">OK</button>
--->
-  
-  <div ><img id='save_title' src="../static/plugins/ep_set_title_on_pad/static/img/tick.png"/></div> 
+  <div><img id='save_title' src="../static/plugins/ep_set_title_on_pad/static/img/tick.png"/></div> 
 </div>
 
 <style type="text/css">
+  #pad_title {
+    font-weight: normal;
+    font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif !important;
+    font-size: 18px;
+  }
+  .nd_breadcrumb{
+    display: flex;
+      flex-direction: row;
+  }
+  .nd_breadcrumb a {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    margin: 0 6px;
+  }
+  .nd_breadcrumb > a::before{
+    content: '';
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: #5d7af3;
+    position: absolute;
+    bottom: -3px;
+    transition: all .25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .nd_breadcrumb > a:hover::before{
+    width: 93%;
+  }
+  .nd_breadcrumb > a::after{
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin-left: 4px;
+    border: 2px solid #363636;
+    border-left: none;
+    border-bottom: none;
+    transform: rotate(45deg);
+    border-radius: 0 4px 0 0;
+  }
   #save_title{
     padding-top: 5px;
     cursor: pointer;
@@ -33,22 +71,12 @@
   }
   
   #title{
-    /* line-height:30px; */
     display: flex;
-    max-width: calc(100% - 30px);
-    font-variant-ligatures: no-contextual;
-    line-height: 22px;
-    border: 1px solid transparent;
-    height: 35px;
-    font-size: 21px !important;
-    font-weight: normal;
-    font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif !important;
-    margin-left: 15px;
-    padding: 5px;
-    width: 100%;
+    padding: 3px 5px;
     white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    border: 2px solid transparent;
+    border-radius: 4px;
   }
   #title:hover {
     border-color : #e5e5e5;
@@ -70,7 +98,3 @@
     }
   }
 </style>
-
-<script src="../static/js/jquery.js"></script>
-
-
