@@ -19,7 +19,7 @@ var buffer = {};
 /*
 * Handle incoming messages from clients
 */
-exports.handleMessage = async function(hook_name, context, callback){
+exports.handleMessage = (hook_name, context, callback)=>{
   // Firstly ignore any request that aren't about chat
   var isTitleMessage = false;
   if(context){
@@ -37,7 +37,6 @@ exports.handleMessage = async function(hook_name, context, callback){
   }
 
   if(!isTitleMessage){
-    callback(false);
     return false;
   }
   var message = context.message.data;
@@ -50,7 +49,7 @@ exports.handleMessage = async function(hook_name, context, callback){
      * myAuthorId -- The Id of the author who is trying to talk to the targetAuthorId
   ***/
   if(message.action === 'sendTitleMessage'){
-    var authorName = await authorManager.getAuthorName(message.myAuthorId); // Get the authorname
+    var authorName = authorManager.getAuthorName(message.myAuthorId); // Get the authorname
     var msg = {
       type: "COLLABROOM",
       data: { 
@@ -69,9 +68,9 @@ exports.handleMessage = async function(hook_name, context, callback){
   }
 
   if(isTitleMessage === true){
-    callback([null]);
+    return[];
   }else{
-    callback(true);
+    return true;
   }
 }
 
@@ -91,7 +90,7 @@ function sendToRoom(message, msg){
   }
 }
 
-exports.clientVars = async function(hook, pad, callback){
+exports.clientVars = async (hook, pad, callback)=>{
   var padId = pad.pad.id;
   var title = await db.get("title:"+padId);
 
@@ -108,9 +107,9 @@ exports.clientVars = async function(hook, pad, callback){
     }
     sendToRoom(false, msg);
  
-  return callback({
+  return {
     ep_title_pad : {
       title : title
     }
-  });
+  };
 }
