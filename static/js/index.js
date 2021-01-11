@@ -1,4 +1,4 @@
-exports.handleClientMessage_CUSTOM = function(hook, context, cb){
+exports.handleClientMessage_CUSTOM = (hook, context, cb)=>{
   if(context.payload.action == "recieveTitleMessage"){
     var message = context.payload.message;
    // if(!$("#title").is(":focus")){ // if we're not editing..
@@ -11,12 +11,15 @@ exports.handleClientMessage_CUSTOM = function(hook, context, cb){
         $('#title').val(padId);
         sendTitle(padId);
       }
+      
 
   
    // }
   }
+
+  return []
 }
-exports.aceInitialized = function(hook, context){
+exports.aceInitialized = (hook, context)=>{
   var message = clientVars.ep_title_pad.title
   if(message){
     window.document.title = message;
@@ -33,8 +36,10 @@ exports.aceInitialized = function(hook, context){
   $('#title').attr('size',currentSize);
   if (currentSize < 10)
   $('#title').attr('size',minSize);
+  return []
+
 }
-exports.documentReady = function(){
+exports.documentReady = ()=>{
   if (!$('#editorcontainerbox').hasClass('flex-layout')) {
       $.gritter.add({
           title: "Error",
@@ -64,6 +69,8 @@ exports.documentReady = function(){
       $("#save_title").click()
     }
   });
+
+  return [];
 }
 
 function sendTitle(value){
