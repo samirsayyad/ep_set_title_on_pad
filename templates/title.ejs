@@ -47,8 +47,8 @@
     padding: 5px;
     width: 100%;
     white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   #title:hover {
     border-color : #e5e5e5;
@@ -63,10 +63,32 @@
     #edit_title, #save_title{
       display:none;
     }
+    #title{
+      background: none;
+    }
+    #title:hover {
+      border: 1px solid transparent;
+
+    }
+    #title:focus {
+      border: 1px solid transparent;
+
+    }
   }
   @media (max-width: 720px){
-    #pad_title{
+    #edit_title, #save_title{
       display:none !important;
+    }
+    #title{
+      background: none;
+    }
+    #title:hover {
+      border: 1px solid transparent;
+
+    }
+    #title:focus {
+      border: 1px solid transparent;
+
     }
   }
 </style>

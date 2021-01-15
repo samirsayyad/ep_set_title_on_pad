@@ -48,27 +48,33 @@ exports.documentReady = ()=>{
           class_name: "error"
       })
   }
+  if (!window.matchMedia('(max-width: 720px)').matches) {
+
   
-  $("#save_title").click(function(e){
-    sendTitle();
-    window.document.title = $('#title').val();
-    $('#title').blur(); 
-    $("#save_title").removeClass("save_title_show")
+    $("#save_title").click(function(e){
+      sendTitle();
+      window.document.title = $('#title').val();
+      $('#title').blur(); 
+      $("#save_title").removeClass("save_title_show")
 
-  })
-  $('#title').keyup(function(e){
-    var minSize = 22 
-    var currentSize =$(this).val().length
-    if (currentSize > minSize)
-      $(this).attr('size',currentSize);
-    if (currentSize < 10)
-      $(this).attr('size',minSize);
+    })
+    $('#title').keyup(function(e){
+      var minSize = 22 
+      var currentSize =$(this).val().length
+      if (currentSize > minSize)
+        $(this).attr('size',currentSize);
+      if (currentSize < 10)
+        $(this).attr('size',minSize);
 
-    $("#save_title").addClass("save_title_show")   
-    if(e.keyCode === 13){
-      $("#save_title").click()
-    }
-  });
+      $("#save_title").addClass("save_title_show")   
+      if(e.keyCode === 13){
+        $("#save_title").click()
+      }
+    });
+  }else{
+    $('#title').attr('disabled', 'disabled');
+
+  }
 
   return [];
 }
