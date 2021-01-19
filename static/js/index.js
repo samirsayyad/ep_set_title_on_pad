@@ -72,7 +72,7 @@ exports.documentReady = ()=>{
       }
     });
   }else{
-    $('#title').attr('disabled', 'disabled');
+    $('#title').attr('readonly', 'readonly');
 
   }
 
